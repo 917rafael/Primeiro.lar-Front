@@ -17,9 +17,9 @@
         <input type="password" placeholder="Digite sua senha" />
 
         <button class="btn-login" type="submit">Entrar</button>
-
+        <router-link to="/loginUsu"></router-link>
         <p class="forgot-password">
-          <a href="#">Esqueceu a senha?</a> | <a href="#">Criar conta</a>
+          <a href="#">Esqueceu a senha?</a> | <router-link to="/Cadastrousu"><a href="#">Criar conta</a></router-link>
         </p>
       </form>
     </div>
