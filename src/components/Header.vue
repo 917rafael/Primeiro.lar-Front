@@ -1,3 +1,6 @@
+<script setup>
+   import router from '@/router';
+</script>
 <template>
   <header class="header-container">
     <div class="header-content">
@@ -41,7 +44,7 @@
       </div>
 
       <div class="cta-button">
-        <button>Entrar</button>
+        <router-link to="/loginUsu"><button>Entrar</button></router-link>
       </div>
     </div>
   </header>
