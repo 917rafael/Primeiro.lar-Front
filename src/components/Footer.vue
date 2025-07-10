@@ -75,6 +75,7 @@
   padding: 60px 40px 40px;
   max-width: 1280px;
   margin: 0 auto;
+  margin-top: 5%;
 }
 
 .footer-brand h2 {
