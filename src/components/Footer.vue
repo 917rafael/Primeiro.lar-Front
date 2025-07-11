@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <footer class="footer-container">
     <div class="footer-top">
@@ -66,6 +67,7 @@
   background: linear-gradient(135deg, #002244, #003b5c);
   color: #ffffff;
   font-family: 'Segoe UI', sans-serif;
+  z-index: 9999;
 }
 
 .footer-top {
