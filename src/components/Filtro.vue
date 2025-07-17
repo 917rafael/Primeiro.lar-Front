@@ -3,7 +3,7 @@
 import { ref } from 'vue'
 
 const etapaSelecionada = ref('Alugar')
-const tipoSelecionado = ref('Apartamento')
+const tiposSelecionados = ref(['Apartamento'])
 const precoMin = ref('')
 const precoMax = ref('')
 const incluirCondominio = ref(false)
@@ -14,9 +14,17 @@ const metragemMin = ref('')
 const metragemMax = ref('')
 const ordenarPor = ref('Relevância')
 
+function toggleTipo(tipo) {
+  if (tiposSelecionados.value.includes(tipo)) {
+    tiposSelecionados.value = tiposSelecionados.value.filter(t => t !== tipo)
+  } else {
+    tiposSelecionados.value.push(tipo)
+  }
+}
+
 function limparFiltros() {
   etapaSelecionada.value = 'Alugar'
-  tipoSelecionado.value = 'Apartamento'
+  tiposSelecionados.value = ['Apartamento']
   precoMin.value = ''
   precoMax.value = ''
   incluirCondominio.value = false
@@ -30,280 +38,305 @@ function limparFiltros() {
 </script>
 
 <template>
-  <div class="filtro-container">
-    <div class="filtro-header">
-      <h3>🎯 Filtros Avançados</h3>
-      <button class="limpar-btn" @click="limparFiltros">Limpar tudo</button>
-    </div>
+  <aside class="filtro animate-slide-in">
+    <header class="filtro__header">
+      <h2><i class="fa-solid fa-sliders"></i> Filtros Avançados</h2>
+      <button @click="limparFiltros">
+        <i class="fa-solid fa-broom"></i> Limpar tudo
+      </button>
+    </header>
 
-    <div class="filtro-scrollable">
-      <!-- Etapas -->
-      <div class="etapas">
-        <button :class="{ ativo: etapaSelecionada === 'Comprar' }" @click="etapaSelecionada = 'Comprar'">Comprar</button>
-        <button :class="{ ativo: etapaSelecionada === 'Alugar' }" @click="etapaSelecionada = 'Alugar'">Alugar</button>
-        <button :class="{ ativo: etapaSelecionada === 'Lançamentos' }" @click="etapaSelecionada = 'Lançamentos'">Lançamentos</button>
+    <section class="filtro__etapas">
+      <button :class="{ active: etapaSelecionada === 'Comprar' }" @click="etapaSelecionada = 'Comprar'">
+        <i class="fa-solid fa-house"></i> Comprar
+      </button>
+      <button :class="{ active: etapaSelecionada === 'Alugar' }" @click="etapaSelecionada = 'Alugar'">
+        <i class="fa-solid fa-key"></i> Alugar
+      </button>
+      <button :class="{ active: etapaSelecionada === 'Lançamentos' }" @click="etapaSelecionada = 'Lançamentos'">
+        <i class="fa-solid fa-building"></i> Lançamentos
+      </button>
+    </section>
+
+    <section class="filtro__campo">
+      <label><i class="fa-solid fa-map-marker-alt"></i> Localização</label>
+      <input type="text" placeholder="Digite bairro, rua ou cidade" />
+    </section>
+
+    <section class="filtro__campo">
+      <label><i class="fa-solid fa-building"></i> Tipos de Imóveis</label>
+      <div class="filtro__tipos">
+        <button 
+          v-for="tipo in ['Apartamento', 'Casa', 'Kitnet', 'Studio', 'Terreno']" 
+          :key="tipo" 
+          :class="{ active: tiposSelecionados.includes(tipo) }"
+          @click="toggleTipo(tipo)"
+        >
+          <i class="fa-solid fa-home"></i> {{ tipo }}
+        </button>
       </div>
+    </section>
 
-      <!-- Localização -->
-      <div class="localizacao">
-        <label>📍 Localização</label>
-        <div class="perto">
-          <span>Perto de mim</span>
-        </div>
-        <input type="text" placeholder="Digite bairro, rua ou cidade" />
+    <section class="filtro__campo">
+      <label><i class="fa-solid fa-money-bill"></i> Faixa de Preço</label>
+      <div class="filtro__inputs">
+        <input type="number" v-model="precoMin" placeholder="R$ mínimo" />
+        <input type="number" v-model="precoMax" placeholder="R$ máximo" />
       </div>
+      <label class="filtro__checkbox">
+        <input type="checkbox" v-model="incluirCondominio" /> Incluir preço do condomínio
+      </label>
+    </section>
 
-      <!-- Tipos -->
-      <div class="tipos">
-        <label>🏘️ Tipo de imóvel</label>
-        <div class="botoes">
-          <button :class="{ ativo: tipoSelecionado === 'Apartamento' }" @click="tipoSelecionado = 'Apartamento'">Apartamento</button>
-          <button :class="{ ativo: tipoSelecionado === 'Casa' }" @click="tipoSelecionado = 'Casa'">Casa</button>
-          <button :class="{ ativo: tipoSelecionado === 'Kitnet' }" @click="tipoSelecionado = 'Kitnet'">Kitnet</button>
-          <button :class="{ ativo: tipoSelecionado === 'Terreno' }" @click="tipoSelecionado = 'Terreno'">Terreno</button>
-        </div>
-      </div>
-
-      <!-- Preço -->
-      <div class="preco">
-        <label>💰 Faixa de Preço</label>
-        <div class="inputs">
-          <input type="number" v-model="precoMin" placeholder="Min R$" />
-          <input type="number" v-model="precoMax" placeholder="Max R$" />
-        </div>
-        <label class="condominio">
-          <input type="checkbox" v-model="incluirCondominio" />
-          Incluir condomínio
-        </label>
-      </div>
-
-      <!-- Quartos, banheiros, vagas -->
-      <div class="atributos">
-        <label>🛏️ Quartos</label>
+    <section class="filtro__campo">
+      <label><i class="fa-solid fa-bed"></i> Comodos</label>
+      <div class="filtro__comodos">
         <select v-model="quartos">
-          <option :value="null">Todos</option>
+          <option :value="null">Quartos</option>
           <option v-for="n in 5" :key="n" :value="n">{{ n }}+</option>
         </select>
-
-        <label>🚿 Banheiros</label>
         <select v-model="banheiros">
-          <option :value="null">Todos</option>
+          <option :value="null">Banheiros</option>
           <option v-for="n in 4" :key="n" :value="n">{{ n }}+</option>
         </select>
-
-        <label>🚗 Vagas</label>
         <select v-model="vagas">
-          <option :value="null">Todas</option>
+          <option :value="null">Vagas</option>
           <option v-for="n in 4" :key="n" :value="n">{{ n }}+</option>
         </select>
       </div>
+    </section>
 
-      <!-- Metragem -->
-      <div class="metragem">
-        <label>📐 Área (m²)</label>
-        <div class="inputs">
-          <input type="number" v-model="metragemMin" placeholder="Min" />
-          <input type="number" v-model="metragemMax" placeholder="Max" />
-        </div>
+    <section class="filtro__campo">
+      <label><i class="fa-solid fa-ruler-combined"></i> Área (m²)</label>
+      <div class="filtro__inputs">
+        <input type="number" v-model="metragemMin" placeholder="Min" />
+        <input type="number" v-model="metragemMax" placeholder="Max" />
       </div>
+    </section>
 
-      <!-- Ordenar -->
-      <div class="ordenar">
-        <label>🔽 Ordenar por</label>
-        <select v-model="ordenarPor">
-          <option>Relevância</option>
-          <option>Menor preço</option>
-          <option>Maior preço</option>
-          <option>Mais recentes</option>
-        </select>
-      </div>
-    </div>
-  </div>
+    <section class="filtro__campo">
+      <label><i class="fa-solid fa-sort"></i> Ordenar por</label>
+      <select v-model="ordenarPor">
+        <option>Relevância</option>
+        <option>Menor preço</option>
+        <option>Maior preço</option>
+        <option>Mais recentes</option>
+      </select>
+    </section>
+  </aside>
 </template>
 
-<style scoped>
-:root {
-  --primary: #3f51b5;
-  --primary-dark: #303f9f;
-  --primary-light: #c5cae9;
-  --secondary: #5a5a5a;
-  --bg-light: #f9f9f9;
-  --bg-white: #ffffff;
-  --gray-border: #ddd;
-  --gray-light: #eee;
-  --text-main: #333;
-  --text-light: #777;
-  --shadow-light: rgba(0, 0, 0, 0.1);
-  --shadow-medium: rgba(0, 0, 0, 0.2);
-  --radius: 10px;
-  --font-base: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --transition-fast: 0.3s ease;
-  --transition-med: 0.4s ease;
-  --transition-slow: 0.6s ease;
-  --max-width: 420px;
-}
+<!-- Font Awesome CDN (Adicionado para ícones profissionais) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-NsmO6C0EN1os0fI3x1BPi6qQX+QkDdFvnyU+DOIzvUQewADfYb13rjUgwtvBRY/TV9fA0UnEBrEcTbGR8Ob3Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-/* =========================
-   CONTAINER PRINCIPAL
-   ========================= */
-.filtro-container {
-  position: fixed;
-  top: 90px;
-  left: 0;
-  width: var(--max-width);
-  height: calc(100vh - 100px);
-  background: var(--bg-white);
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.filtro {
+  font-family: 'Inter', sans-serif;
+  max-width: 360px;
+  width: 100%;
+  height: 100vh;
+  padding: 1.5rem;
+  background: var(--bg-light);
   border-right: 1px solid var(--gray-border);
-  box-shadow: 5px 0 18px var(--shadow-light);
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  z-index: 1000;
-  transition: width var(--transition-fast), transform var(--transition-fast);
-  font-family: var(--font-base);
-  user-select: none;
-  overflow: hidden;
-  border-top-right-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
-  animation: slideInFromLeft 0.5s ease-out;
+  gap: 1.5rem;
 }
 
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-/* =========================
-   HEADER - TITULO E BOTÃO LIMPAR
-   ========================= */
-.filtro-header {
-  padding: 24px 28px;
-  border-bottom: 1px solid var(--gray-border);
-  background: var(--bg-light);
+.filtro__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: inset 0 -1px 3px var(--shadow-light);
-  border-top-right-radius: var(--radius);
-  transition: background-color var(--transition-fast);
 }
 
-.filtro-header h3 {
-  font-size: 1.5rem;
+.filtro__header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--text-main);
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.limpar-btn {
-  background: transparent;
+.filtro__header button {
+  font-size: 0.9rem;
+  color: var(--danger-color);
+  background: none;
   border: none;
-  color: var(--primary);
-  font-size: 1rem;
   cursor: pointer;
-  font-weight: 700;
-  transition: color var(--transition-fast), transform var(--transition-fast);
-  padding: 6px 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filtro__etapas {
+  display: flex;
+  background: var(--gray-light);
   border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
 }
 
-.limpar-btn:hover {
-  color: var(--primary-dark);
-  background: var(--primary-light);
-  box-shadow: 0 0 8px var(--primary-light);
-  transform: scale(1.05);
-}
-
-/* =========================
-   SEÇÕES DO FILTRO
-   ========================= */
-.filtro-scrollable {
+.filtro__etapas button {
   flex: 1;
-  overflow-y: auto;
-  padding: 28px 32px 36px 32px;
-  scrollbar-width: thin;
-}
-
-.filtro-scrollable::-webkit-scrollbar {
-  width: 10px;
-}
-
-.filtro-scrollable::-webkit-scrollbar-track {
-  background: var(--bg-light);
-}
-
-.filtro-scrollable::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 10px;
-}
-
-label {
-  display: block;
-  margin-bottom: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-main);
-}
-
-/* =========================
-   BOTÕES DE ETAPA E TIPOS DE IMÓVEL
-   ========================= */
-.etapas button,
-.botoes button {
-  padding: 14px 0;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: var(--radius);
-  background: linear-gradient(145deg, #f9f9f9, #e8e8e8);
-  color: var(--text-main);
+  padding: 0.8rem;
+  font-weight: 500;
+  color: var(--text-light);
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: background-color var(--transition-med), transform var(--transition-fast);
+  font-size: 0.9rem;
+  transition: background var(--transition), color var(--transition);
 }
 
-.etapas button:hover,
-.botoes button:hover {
-  background: var(--primary-light);
-  color: white;
-  transform: scale(1.05);
-}
-
-.ativo {
-  background: var(--primary);
+.filtro__etapas button.active {
+  background: var(--primary-color);
   color: #fff;
+  font-weight: 600;
 }
 
-/* =========================
-   CAMPOS INPUT E SELECT
-   ========================= */
-input[type="text"],
-input[type="number"],
-select {
-  width: 100%;
-  padding: 14px 16px;
-  font-size: 1rem;
+.filtro__campo {
+  background: #fff;
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
-  background-color: var(--bg-white);
-  border: 1.5px solid var(--gray-border);
-  transition: transform var(--transition-fast);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-select:focus {
-  border-color: var(--primary);
-  transform: scale(1.02);
+.filtro__campo label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* =========================
-   FOCUS GLOBAL NOS SELECTS E INPUTS
-   ========================= */
-input:focus-visible,
-select:focus-visible {
-  outline-offset: 3px;
-  outline: 2px solid var(--primary-light);
+.filtro__campo input[type="text"],
+.filtro__campo input[type="number"] {
+  background: #f4f4f4;
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  width: 100%;
+}
+
+.filtro__campo input::placeholder {
+  color: var(--text-disabled);
+}
+
+.filtro__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+.filtro__tipos {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.filtro__tipos button {
+  flex: 1 1 calc(33% - 0.7rem);
+  background: #f0f0f0;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filtro__tipos button.active {
+  border-color: var(--primary-color);
+  background: #fff;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.filtro__inputs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filtro__inputs input {
+  flex: 1;
+}
+
+.filtro__comodos {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.filtro__comodos select {
+  flex: 1;
+  padding: 0.65rem;
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: #f9f9f9;
+}
+
+.filtro__mais-tipos {
+  font-size: 0.85rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+}
+
+.filtro__selecao-atual {
+  background: var(--gray-light);
+  padding: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.filtro__selecao-atual span {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .filtro {
+    position: relative;
+    height: auto;
+    max-width: 100%;
+    box-shadow: none;
+  }
+
+  .filtro__tipos button {
+    flex: 1 1 48%;
+  }
 }
 </style>
