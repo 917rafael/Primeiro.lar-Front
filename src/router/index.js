@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
+      path: '/ParticularProficional',
+      name: 'ParticularProficional',
+      component: () => import('../views/ParticularProficional.vue'),
+    },
+    {
       path: '/loginusu',
       name: 'login',
       component: () => import('../views/LoginUsuario.vue'),

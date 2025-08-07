@@ -34,8 +34,7 @@ const property = {
         </div>
 
         <div class="property-price">{{ property.price }}</div>
-
-        <button class="contact-button">Contatar</button>
+        <router-link to="/"><button class="contact-button">Contatar</button></router-link>
       </div>
     </div>
   </div>

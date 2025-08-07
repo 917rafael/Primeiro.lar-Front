@@ -129,25 +129,39 @@ function limparFiltros() {
 <!-- Font Awesome CDN (Adicionado para ícones profissionais) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-NsmO6C0EN1os0fI3x1BPi6qQX+QkDdFvnyU+DOIzvUQewADfYb13rjUgwtvBRY/TV9fA0UnEBrEcTbGR8Ob3Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 .filtro {
   font-family: 'Inter', sans-serif;
-  max-width: 360px;
+  max-width: 35%;
   width: 100%;
   height: 100vh;
-  padding: 1.5rem;
-  background: var(--bg-light);
-  border-right: 1px solid var(--gray-border);
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-right: 1px solid #ddd;
+  backdrop-filter: blur(6px);
   overflow-y: auto;
   position: fixed;
   top: 0;
   left: 0;
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .filtro__header {
@@ -157,56 +171,61 @@ function limparFiltros() {
 }
 
 .filtro__header h2 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: #333;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .filtro__header button {
   font-size: 0.9rem;
-  color: var(--danger-color);
+  color: #c0392b;
   background: none;
   border: none;
   cursor: pointer;
   font-weight: 500;
+  transition: color 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
 
+.filtro__header button:hover {
+  color: #a52820;
+}
+
 .filtro__etapas {
   display: flex;
-  background: var(--gray-light);
-  border-radius: var(--radius);
+  background: #f3f3f3;
+  border-radius: 10px;
   overflow: hidden;
-  border: 1px solid var(--border-color);
+  border: 1px solid #ccc;
 }
 
 .filtro__etapas button {
   flex: 1;
-  padding: 0.8rem;
+  padding: 0.9rem;
   font-weight: 500;
-  color: var(--text-light);
+  color: #777;
   background: none;
   border: none;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background var(--transition), color var(--transition);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .filtro__etapas button.active {
-  background: var(--primary-color);
+  background: #e60023;
   color: #fff;
   font-weight: 600;
 }
 
 .filtro__campo {
   background: #fff;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  border-radius: 10px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -216,7 +235,7 @@ function limparFiltros() {
 .filtro__campo label {
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--text-main);
+  color: #333;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -225,16 +244,16 @@ function limparFiltros() {
 .filtro__campo input[type="text"],
 .filtro__campo input[type="number"] {
   background: #f4f4f4;
-  border: 1px solid var(--gray-border);
-  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  border-radius: 10px;
   padding: 0.75rem;
   font-size: 0.9rem;
-  color: var(--text-main);
+  color: #333;
   width: 100%;
 }
 
 .filtro__campo input::placeholder {
-  color: var(--text-disabled);
+  color: #aaa;
 }
 
 .filtro__checkbox {
@@ -242,7 +261,7 @@ function limparFiltros() {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: var(--text-main);
+  color: #333;
 }
 
 .filtro__tipos {
@@ -254,11 +273,11 @@ function limparFiltros() {
 .filtro__tipos button {
   flex: 1 1 calc(33% - 0.7rem);
   background: #f0f0f0;
-  border: 1.5px solid var(--border-color);
-  border-radius: var(--radius);
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
   padding: 0.75rem;
   font-size: 0.85rem;
-  color: var(--text-light);
+  color: #777;
   text-align: center;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -269,10 +288,14 @@ function limparFiltros() {
 }
 
 .filtro__tipos button.active {
-  border-color: var(--primary-color);
+  border-color: #e60023;
   background: #fff;
-  color: var(--primary-color);
+  color: #e60023;
   font-weight: 600;
+}
+
+.filtro__tipos button:hover {
+  background-color: #eaeaea;
 }
 
 .filtro__inputs {
@@ -293,14 +316,15 @@ function limparFiltros() {
   flex: 1;
   padding: 0.65rem;
   font-size: 0.9rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  border: 1px solid #ccc;
   background-color: #f9f9f9;
+  color: #333;
 }
 
 .filtro__mais-tipos {
   font-size: 0.85rem;
-  color: var(--primary-color);
+  color: #e60023;
   font-weight: 500;
   cursor: pointer;
   display: inline-flex;
@@ -310,20 +334,20 @@ function limparFiltros() {
 }
 
 .filtro__selecao-atual {
-  background: var(--gray-light);
+  background: #f3f3f3;
   padding: 1rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  border: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-main);
+  color: #333;
 }
 
 .filtro__selecao-atual span {
-  color: var(--primary-color);
+  color: #e60023;
   font-weight: 600;
 }
 
@@ -333,10 +357,12 @@ function limparFiltros() {
     height: auto;
     max-width: 100%;
     box-shadow: none;
+    padding: 1.5rem;
   }
 
   .filtro__tipos button {
     flex: 1 1 48%;
   }
 }
+
 </style>

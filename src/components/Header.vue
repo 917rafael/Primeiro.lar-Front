@@ -1,5 +1,4 @@
 <script setup>
-   import router from '@/router';
 </script>
 <template>
   <header class="header-container">
@@ -44,7 +43,7 @@
       </div>
 
       <div class="cta-button">
-        <router-link to="/loginUsu"><button>Entrar</button></router-link>
+        <router-link to="/ParticularProficional"><button>Entrar</button></router-link>
       </div>
     </div>
   </header>
