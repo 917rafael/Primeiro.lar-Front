@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: '/ParticularProficional',
       name: 'ParticularProficional',
-      component: () => import('../views/ParticularProficional.vue'),
+      component: () => import('../views/ParticularProfissional.vue'),
     },
     {
       path: '/loginusu',

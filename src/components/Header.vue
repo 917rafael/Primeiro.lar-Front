@@ -38,17 +38,17 @@
         <a href="#">Lançamentos</a>
       </nav>
 
-      <div class="cta-button">
-        <button>❤️Favoritos</button>
-      </div>
-
-      <div class="cta-button">
-        <router-link to="/ParticularProficional"><button>Entrar</button></router-link>
+      <div class="cta-buttons">
+        <div class="cta-button">
+          <button>❤️Favoritos</button>
+        </div>
+        <div class="cta-button">
+          <router-link to="/Cadastrousu"><button>Entrar</button></router-link>
+        </div>
       </div>
     </div>
   </header>
 </template>
-
 
 
 <style scoped>
@@ -69,6 +69,10 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.cta-button:last-child {
+  margin-right: 0;
 }
 
 .logo img {
@@ -110,25 +114,32 @@
   width: 100%;
 }
 
+.cta-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
 .cta-button {
   margin-left: 12px;
 }
 
 .cta-button button {
-  background-color: #00e1ff;
-  color: #002244;
+  background-color: transparent;
+  color: #00e1ff;
   padding: 12px 22px;
-  border: none;
-  border-radius: 30px;
+  border: 2px solid #00e1ff;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 4px 12px rgba(0, 225, 255, 0.4);
+  transition: all 0.3s ease;
+  box-shadow: none;
 }
 
 .cta-button button:hover {
-  background-color: #00cce1;
+  background-color: #00e1ff;
+  color: #002244;
   transform: translateY(-2px);
 }
 

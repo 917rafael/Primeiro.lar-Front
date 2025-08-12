@@ -6,7 +6,7 @@ const property = {
   area: "11.000m²",
   rooms: 2,
   price: "R$ 800.000",
-  image: "/img/imovel.jpg", // Atualize com o caminho correto da imagem
+  image: "/img/imovel.jpg", 
 };
 </script>
 
@@ -34,7 +34,7 @@ const property = {
         </div>
 
         <div class="property-price">{{ property.price }}</div>
-        <router-link to="/"><button class="contact-button">Contatar</button></router-link>
+        <router-link to="/ParticularProficional"><button class="contact-button">Contatar</button></router-link>
       </div>
     </div>
   </div>
@@ -44,12 +44,12 @@ const property = {
 
 .container {
   display: flex;
-  justify-content: flex-end; /* Fica à direita */
+  justify-content: flex-end; 
   padding: 60px 20px;
   background-color: #7a3737;
   width: 100%;
-  max-width: 1005px; /* Limite de largura opcional */
-  margin-left: auto; /* Para empurrar à direita */
+  max-width: 1005px; 
+  margin-left: auto; 
   margin-right: 0;
 }
 
