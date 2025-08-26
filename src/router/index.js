@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: '/ParticularProficional',
       name: 'ParticularProficional',
-      component: () => import('../views/ParticularProfissional.vue'),
+      component: () => import('../views/ParticularProficional.vue'),
     },
     {
       path: '/loginusu',
@@ -35,6 +35,11 @@ const router = createRouter({
       name: 'cadastroCorretor',
       component: () => import('../views/Cadastro.vue'),
     },
+    {
+      path:'/Detalhes',
+      name: 'detalhesDoAnuncio',
+      component: () => import('../components/DetalhesDoAnuncio.vue') 
+    }
   ],
 })
 
