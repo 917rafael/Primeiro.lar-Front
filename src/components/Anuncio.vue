@@ -1,6 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
-import DetalhesDoAnuncio from './DetalhesDoAnuncio.vue';
+import { ref } from "vue"
+import DetalhesDoAnuncio from "./DetalhesDoAnuncio.vue"
+
+const isOpen = ref(false)
 
 const property = {
   title: "Chácara / sítio à venda",
@@ -18,7 +21,6 @@ const property = {
 <template>
   <div class="container">
     <div class="property-card">
-    
       <div class="image-section">
         <img :src="property.image" alt="Imagem do imóvel" class="property-image" />
         <span class="price-tag">{{ property.price }}</span>
@@ -40,12 +42,13 @@ const property = {
             <span class="value">{{ property.rooms }}</span>
           </div>
         </div>
+          <DetalhesDoAnuncio v-if="isOpen" @close="isOpen = false" />
 
-          <button class="contact-button"
-          @click="DetalhesDoAnuncio && $router.push(`/Detalhes`)">Contatar anunciante</button>
-       
       </div>
+       <button class="contact-button"
+           @click="isOpen = true">Contatar anunciante</button>
     </div>
+     <DetalhesDoAnuncio v-if="isOpen" @close="isOpen = false" />
   </div>
 </template>
 
