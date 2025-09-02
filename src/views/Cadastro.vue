@@ -30,10 +30,10 @@
         <label>Senha</label>
         <input type="password" placeholder="Crie uma senha segura" required />
 
-        <button class="btn-register" type="submit">Cadastrar Corretor</button>
+        <button class="btn-register" type="submit" >Cadastrar Corretor</button>
 
         <p class="login-link">
-          Já é cadastrado? <a href="#">Entrar</a>
+          Já é cadastrado?<router-link to="/loginusu"><a href="#">Entrar</a></router-link>
         </p>
       </form>
     </div>

@@ -1,11 +1,16 @@
 <template>
   <div class="login-page">
+
+    <!-- <button class="btn-voltar" @click="voltarHome">
+      <i class="fas fa-arrow-left"></i>
+    </button> -->
+
     <div class="login-card">
       <div class="login-header">
         <!--
           <img src="/logo-imobiliaria.png" alt="Logo Imobiliária" class="logo" />
         -->
-        <h2>Área do Cliente</h2>
+        <h2>Área do Corretor</h2>
         <p>Entre para acessar imóveis para comprar ou alugar</p>
       </div>
 
@@ -19,14 +24,51 @@
         <button class="btn-login" type="submit">Entrar</button>
         <router-link to="/loginUsu"></router-link>
         <p class="forgot-password">
-          <a href="#">Esqueceu a senha?</a> | <router-link to="/Cadastrousu"><a href="#">Criar conta</a></router-link>
+          <a href="#">Esqueceu a senha?</a> | <router-link to="/Cadastro"><a href="#">Criar conta</a></router-link>
         </p>
       </form>
     </div>
   </div>
 </template>
 
+<script setup>
+// import { useRouter } from 'vue-router'
+
+// const router = useRouter()
+// const voltarHome = () => {
+//   router.push('/') // redireciona para a página inicial
+// }
+</script>
+
 <style scoped>
+/* mantém todo o seu CSS original */
+
+/* BOTÃO VOLTAR */
+.btn-voltar {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #002244;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 34, 68, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.btn-voltar:hover {
+  background: #004080;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 34, 68, 0.4);
+}
+
 /* Reset básico */
 * {
   margin: 0;
