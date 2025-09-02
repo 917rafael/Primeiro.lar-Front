@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="register-page">
     <div class="register-card">
@@ -40,14 +41,13 @@
 </template>
 
 <style scoped>
-/* Reset básico */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilo global */
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #f0f4f8;

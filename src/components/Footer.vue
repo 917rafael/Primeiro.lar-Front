@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <footer class="footer-container">
     <div class="footer-top">
@@ -12,11 +13,9 @@
       <div class="footer-contact">
         <h3>Fale Conosco</h3>
         <ul>
-
             <li><i class="fas fa-envelope"></i> contato@imobiliariaexemplo.com</li>
             <li><i class="fas fa-phone-alt"></i> (11) 1234-5678</li>
             <li><i class="fas fa-map-marker-alt"></i> Av. Central, 123 - São Paulo, SP</li>
-
         </ul>
       </div>
 
@@ -66,6 +65,7 @@
   background: linear-gradient(135deg, #002244, #003b5c);
   color: #ffffff;
   font-family: 'Segoe UI', sans-serif;
+  z-index: 9999;
 }
 
 .footer-top {
