@@ -1,5 +1,3 @@
-<script setup>
-</script>
 <template>
   <header class="header-container">
     <div class="header-content">
@@ -36,6 +34,7 @@
         </div>
 
         <a href="#">Lançamentos</a>
+        <a href="/Anuncie">Anuncie</a>
       </nav>
 
       <div class="cta-buttons">
