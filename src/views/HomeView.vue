@@ -15,3 +15,4 @@ import Filtro from '@/components/Filtro.vue';
   <Anuncio />
   <Anuncio />
 </template>
+

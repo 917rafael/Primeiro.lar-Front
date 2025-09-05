@@ -363,7 +363,6 @@ h4 {
   margin-bottom: 0.5rem;
 }
 
-/* Descrição */
 .description {
   font-size: 1.05rem;
   color: #444;
@@ -374,7 +373,6 @@ h4 {
   box-shadow: 0 1px 4px rgba(230,0,35,0.03);
 }
 
-/* Comodidades */
 .comodidades {
   margin-bottom: 1.5rem;
 }

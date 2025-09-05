@@ -59,11 +59,11 @@ function fecharDetalhes() {
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Espaço menor entre anúncios */
+  gap: 10px; 
   justify-content: flex-end;
   align-items: flex-end;
   min-height: 50vh;
-  padding: 30px 10px; /* Menos padding vertical/horizontal */
+  padding: 30px 10px; 
   background: linear-gradient(120deg, #f5f5f5 80%, #e3f6ff 100%);
 }
 
