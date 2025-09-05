@@ -38,7 +38,10 @@
 // const voltarHome = () => {
 //   router.push('/') // redireciona para a página inicial
 // }
+import '../assets/main.css'
+
 </script>
+
 
 <style scoped>
 /* mantém todo o seu CSS original */
@@ -77,10 +80,7 @@
 }
 
 /* Fonte e fundo principal */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f7fa;
-}
+
 
 /* Página de login */
 .login-page {
@@ -89,7 +89,6 @@ body {
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
-  background-image: linear-gradient(to bottom right, #ffffff, #e6f2ff);
 }
 
 /* Cartão de login */

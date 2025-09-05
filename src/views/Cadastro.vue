@@ -59,7 +59,6 @@ body {
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
-  background: linear-gradient(to right, #f5f7fa, #dceeff);
 }
 
 .register-card {

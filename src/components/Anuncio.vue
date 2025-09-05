@@ -64,7 +64,6 @@ function fecharDetalhes() {
   align-items: flex-end;
   min-height: 50vh;
   padding: 30px 10px; 
-  background: linear-gradient(120deg, #f5f5f5 80%, #e3f6ff 100%);
 }
 
 .property-card {
@@ -101,7 +100,6 @@ function fecharDetalhes() {
   width: 50%;
   overflow: hidden;
   min-height: 320px;
-  background: linear-gradient(120deg, #e3f6ff 80%, #fff 100%);
   display: flex;
   align-items: center;
   justify-content: center;

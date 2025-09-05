@@ -15,14 +15,14 @@
           </p>
 
           <div class="botoes">
-            <button class="btn profissional">
+           <button class="btn profissional">
               <i class="fas fa-briefcase"></i>
               Corretor
             </button>
-            <button class="btn particular">
+            <router-link to="/PaginaAnuncio"> <button class="btn particular">
               <i class="fas fa-user"></i>
               Interessado
-            </button>
+            </button></router-link>
           </div>
         </div>
 
