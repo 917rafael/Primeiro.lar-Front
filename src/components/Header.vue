@@ -64,16 +64,20 @@ defineOptions({
 
 .header-container {
   width: 100%;
-  background: linear-gradient(120deg, #002244 70%, #00e1ff 100%);
+  margin: 0;
+  left: 0;
+  right: 0;
+  background: var(--color2);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.13);
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
   font-family: 'Inter', Arial, sans-serif;
 }
 
 .header-content {
-  max-width: 1280px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 18px 24px;
   display: flex;
@@ -89,14 +93,14 @@ defineOptions({
   gap: 0.7rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--color5);
   letter-spacing: 0.04em;
 }
 .logo p {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--color5);
   letter-spacing: 0.04em;
 }
 
@@ -107,7 +111,7 @@ defineOptions({
   align-items: center;
 }
 .navigation a {
-  color: #fff;
+  color: var(--color5);
   font-size: 1.08rem;
   font-weight: 600;
   text-decoration: none;
@@ -128,8 +132,8 @@ defineOptions({
   border-radius: 2px;
 }
 .navigation a:hover {
-  color: #00e1ff;
-  background: rgba(255,255,255,0.07);
+  color: var(--color4);
+  background: rgba(224,228,206,0.07);
 }
 .navigation a:hover::after {
   width: 100%;
@@ -145,8 +149,8 @@ defineOptions({
   margin-left: 0;
 }
 .cta-button button {
-  background: linear-gradient(90deg, #00e1ff 80%, #fff 100%);
-  color: #002244;
+  background: var(--color4);
+  color: var(--color1);
   padding: 10px 22px;
   border: none;
   border-radius: 10px;
@@ -154,14 +158,14 @@ defineOptions({
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  box-shadow: 0 2px 8px rgba(0,225,255,0.08);
+  box-shadow: 0 2px 8px rgba(110,153,135,0.08);
   outline: none;
 }
 .cta-button button:hover {
-  background: linear-gradient(90deg, #002244 80%, #00e1ff 100%);
-  color: #fff;
+  background: var(--color3);
+  color: var(--color5);
   transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 4px 16px rgba(0,225,255,0.12);
+  box-shadow: 0 4px 16px rgba(110,153,135,0.12);
 }
 
 /* Dropdown */

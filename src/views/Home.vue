@@ -20,7 +20,6 @@
             </button>
             <router-link to="/PaginaAnuncio">
               <button class="btn particular">
-                <i class="fas fa-user"></i>
                 Interessado
               </button>
             </router-link>
@@ -133,10 +132,15 @@ const anuncios = [
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
+:root {
+  --cor1: #fff;
+  --cor2: #545454;
+}
+
 .pagina-anuncio {
   font-family: 'Inter', sans-serif;
   color: var(--color1);
-  background: linear-gradient(135deg, var(--color5) 0%, var(--color4) 100%);
+  background: linear-gradient(135deg, var(--cor1) 0%, var(--cor2) 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -151,7 +155,6 @@ const anuncios = [
   position: relative;
   overflow: hidden;
   background: var(--color2);
-  border-radius: 0 0 32px 32px;
   box-shadow: 0 8px 32px rgba(17,77,77,0.08);
 }
 
@@ -220,7 +223,6 @@ const anuncios = [
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
   align-items: center;
   gap: 0.6rem;
   box-shadow: 0 6px 14px rgba(17,77,77,0.18);
@@ -234,9 +236,9 @@ const anuncios = [
 }
 
 .btn.particular {
-  background: var(--color3);
-  color: var(--color5);
-  border-color: var(--color4);
+  background: var(--color4);
+  color: var(--color1);
+  border-color: var(--color3);
 }
 
 .btn:hover {
