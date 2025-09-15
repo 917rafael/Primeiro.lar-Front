@@ -1,4 +1,6 @@
 <template>
+    <!-- Hero -->
+
   <div class="pagina-anuncio">
     <!-- Hero -->
     <section class="hero">
