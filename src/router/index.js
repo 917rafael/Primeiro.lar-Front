@@ -38,7 +38,17 @@ const router = createRouter({
     {
       path:'/Favoritos',
       name: 'Favoritos',
-      component: () => import('../views/Favoritos.vue') 
+      component: () => import('../views/Favor 
+    },
+    {
+      path:'/Anuncie',
+      name: 'anuncioImovel',
+      component: () => import('../views/AnuncioImovel.vue')
+    },
+    {
+      path:'/PreviaAnuncio',
+      name: 'previaAnuncio',
+      component: () => import('../components/PreviaDoAnuncio.vue') 
     }
   ],
 })

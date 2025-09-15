@@ -1,8 +1,10 @@
+
 <script setup>
 defineOptions({
   name: 'AppHeader'
 });
 </script>
+
 <template>
   <header class="header-container">
     <div class="header-content">
@@ -39,6 +41,7 @@ defineOptions({
         </div>
 
         <a href="#">Lançamentos</a>
+        <a href="/Anuncie">Anuncie</a>
       </nav>
 
       <div class="cta-buttons">
