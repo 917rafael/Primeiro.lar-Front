@@ -39,6 +39,16 @@ const router = createRouter({
       path:'/Detalhes',
       name: 'detalhesDoAnuncio',
       component: () => import('../components/DetalhesDoAnuncio.vue') 
+    },
+    {
+      path:'/Anuncie',
+      name: 'anuncioImovel',
+      component: () => import('../views/AnuncioImovel.vue')
+    },
+    {
+      path:'/PreviaAnuncio',
+      name: 'previaAnuncio',
+      component: () => import('../components/PreviaDoAnuncio.vue') 
     }
   ],
 })
