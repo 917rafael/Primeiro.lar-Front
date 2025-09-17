@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="hero-imagem">
-          <img src="../img/mulher-poltrona.png" alt="Mulher sentada" />
+          <!-- <img src="../img/mulher-poltrona.png" alt="Mulher sentada" /> -->
         </div>
       </div>
     </section>
