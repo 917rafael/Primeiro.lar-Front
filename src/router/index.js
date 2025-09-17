@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/PagAnuncio.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
 
     {
-      path: '/',
+      path: '/PaginaAnuncio',
       name: 'home',
       component: HomeView,
     },
@@ -16,19 +16,14 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/ParticularProficional',
+      path: '/',
       name: 'ParticularProficional',
-      component: () => import('../views/ParticularProficional.vue'),
+      component: () => import('../views/Home.vue'),
     },
     {
       path: '/loginusu',
       name: 'login',
       component: () => import('../views/LoginUsuario.vue'),
-    },
-    {
-      path: '/Cadastrousu',
-      name: 'cadastro',
-      component: () => import('../views/CadastroUsuario.vue'),
     },
     {
       path: '/Cadastro',
@@ -39,6 +34,11 @@ const router = createRouter({
       path:'/Detalhes',
       name: 'detalhesDoAnuncio',
       component: () => import('../components/DetalhesDoAnuncio.vue') 
+    },
+    {
+      path:'/Favoritos',
+      name: 'Favoritos',
+      component: () => import('../views/Favoritos.vue')
     },
     {
       path:'/Anuncie',

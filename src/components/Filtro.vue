@@ -1,368 +1,213 @@
-<!-- eslint-disable vue/multi-word-component-names -->
-<script setup>
-import { ref } from 'vue'
-
-const etapaSelecionada = ref('Alugar')
-const tiposSelecionados = ref(['Apartamento'])
-const precoMin = ref('')
-const precoMax = ref('')
-const incluirCondominio = ref(false)
-const quartos = ref(null)
-const banheiros = ref(null)
-const vagas = ref(null)
-const metragemMin = ref('')
-const metragemMax = ref('')
-const ordenarPor = ref('Relevância')
-
-function toggleTipo(tipo) {
-  if (tiposSelecionados.value.includes(tipo)) {
-    tiposSelecionados.value = tiposSelecionados.value.filter(t => t !== tipo)
-  } else {
-    tiposSelecionados.value.push(tipo)
-  }
-}
-
-function limparFiltros() {
-  etapaSelecionada.value = 'Alugar'
-  tiposSelecionados.value = ['Apartamento']
-  precoMin.value = ''
-  precoMax.value = ''
-  incluirCondominio.value = false
-  quartos.value = null
-  banheiros.value = null
-  vagas.value = null
-  metragemMin.value = ''
-  metragemMax.value = ''
-  ordenarPor.value = 'Relevância'
-}
-</script>
-
 <template>
-  <aside class="filtro animate-slide-in">
-    <header class="filtro__header">
-      <h2><i class="fa-solid fa-sliders"></i> Filtros Avançados</h2>
-      <button @click="limparFiltros">
-        <i class="fa-solid fa-broom"></i> Limpar tudo
-      </button>
-    </header>
-
-    <section class="filtro__etapas">
-      <button :class="{ active: etapaSelecionada === 'Comprar' }" @click="etapaSelecionada = 'Comprar'">
-        <i class="fa-solid fa-house"></i> Comprar
-      </button>
-      <button :class="{ active: etapaSelecionada === 'Alugar' }" @click="etapaSelecionada = 'Alugar'">
-        <i class="fa-solid fa-key"></i> Alugar
-      </button>
-      <button :class="{ active: etapaSelecionada === 'Lançamentos' }" @click="etapaSelecionada = 'Lançamentos'">
-        <i class="fa-solid fa-building"></i> Lançamentos
-      </button>
-    </section>
-
-    <section class="filtro__campo">
-      <label><i class="fa-solid fa-map-marker-alt"></i> Localização</label>
-      <input type="text" placeholder="Digite bairro, rua ou cidade" />
-    </section>
-
-    <section class="filtro__campo">
-      <label><i class="fa-solid fa-building"></i> Tipos de Imóveis</label>
-      <div class="filtro__tipos">
-        <button 
-          v-for="tipo in ['Apartamento', 'Casa', 'Kitnet', 'Studio', 'Terreno']" 
-          :key="tipo" 
-          :class="{ active: tiposSelecionados.includes(tipo) }"
-          @click="toggleTipo(tipo)"
-        >
-          <i class="fa-solid fa-home"></i> {{ tipo }}
-        </button>
+  <aside class="filtro-imovel">
+    <form @submit.prevent="buscarImoveis">
+      <h2>Filtrar Imóveis</h2>
+      <div class="grupo-campos">
+        <div class="campo">
+          <label for="tipo">Tipo</label>
+          <select v-model="tipo" id="tipo">
+            <option value="">Todos</option>
+            <option value="Apartamento">Apartamento</option>
+            <option value="Casa">Casa</option>
+            <option value="Studio">Studio</option>
+            <option value="Kitnet">Kitnet</option>
+            <option value="Terreno">Terreno</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="localizacao">Localização</label>
+          <input v-model="localizacao" id="localizacao" type="text" placeholder="Cidade, bairro ou rua" />
+        </div>
       </div>
-    </section>
-
-    <section class="filtro__campo">
-      <label><i class="fa-solid fa-money-bill"></i> Faixa de Preço</label>
-      <div class="filtro__inputs">
-        <input type="number" v-model="precoMin" placeholder="R$ mínimo" />
-        <input type="number" v-model="precoMax" placeholder="R$ máximo" />
+      <div class="grupo-campos">
+        <div class="campo">
+          <label for="precoMin">Preço Mínimo</label>
+          <input v-model="precoMin" id="precoMin" type="number" min="0" placeholder="R$ min" />
+        </div>
+        <div class="campo">
+          <label for="precoMax">Preço Máximo</label>
+          <input v-model="precoMax" id="precoMax" type="number" min="0" placeholder="R$ max" />
+        </div>
       </div>
-      <label class="filtro__checkbox">
-        <input type="checkbox" v-model="incluirCondominio" /> Incluir preço do condomínio
-      </label>
-    </section>
-
-    <section class="filtro__campo">
-      <label><i class="fa-solid fa-bed"></i> Comodos</label>
-      <div class="filtro__comodos">
-        <select v-model="quartos">
-          <option :value="null">Quartos</option>
-          <option v-for="n in 5" :key="n" :value="n">{{ n }}+</option>
-        </select>
-        <select v-model="banheiros">
-          <option :value="null">Banheiros</option>
-          <option v-for="n in 4" :key="n" :value="n">{{ n }}+</option>
-        </select>
-        <select v-model="vagas">
-          <option :value="null">Vagas</option>
-          <option v-for="n in 4" :key="n" :value="n">{{ n }}+</option>
-        </select>
+      <div class="grupo-campos">
+        <div class="campo">
+          <label for="quartos">Quartos</label>
+          <select v-model="quartos" id="quartos">
+            <option value="">Qualquer</option>
+            <option v-for="n in 5" :key="n" :value="n">{{ n }}+</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="banheiros">Banheiros</label>
+          <select v-model="banheiros" id="banheiros">
+            <option value="">Qualquer</option>
+            <option v-for="n in 4" :key="n" :value="n">{{ n }}+</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="vagas">Vagas</label>
+          <select v-model="vagas" id="vagas">
+            <option value="">Qualquer</option>
+            <option v-for="n in 4" :key="n" :value="n">{{ n }}+</option>
+          </select>
+        </div>
       </div>
-    </section>
-
-    <section class="filtro__campo">
-      <label><i class="fa-solid fa-ruler-combined"></i> Área (m²)</label>
-      <div class="filtro__inputs">
-        <input type="number" v-model="metragemMin" placeholder="Min" />
-        <input type="number" v-model="metragemMax" placeholder="Max" />
+      <div class="grupo-campos">
+        <div class="campo">
+          <label for="areaMin">Área Mínima (m²)</label>
+          <input v-model="areaMin" id="areaMin" type="number" min="0" placeholder="Min" />
+        </div>
+        <div class="campo">
+          <label for="areaMax">Área Máxima (m²)</label>
+          <input v-model="areaMax" id="areaMax" type="number" min="0" placeholder="Max" />
+        </div>
       </div>
-    </section>
-
-    <section class="filtro__campo">
-      <label><i class="fa-solid fa-sort"></i> Ordenar por</label>
-      <select v-model="ordenarPor">
-        <option>Relevância</option>
-        <option>Menor preço</option>
-        <option>Maior preço</option>
-        <option>Mais recentes</option>
-      </select>
-    </section>
+      <div class="botoes">
+        <button type="button" class="limpar" @click="limparFiltros">Limpar</button>
+        <button type="submit" class="buscar">Buscar</button>
+      </div>
+    </form>
   </aside>
 </template>
 
-<!-- Font Awesome CDN (Adicionado para ícones profissionais) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-NsmO6C0EN1os0fI3x1BPi6qQX+QkDdFvnyU+DOIzvUQewADfYb13rjUgwtvBRY/TV9fA0UnEBrEcTbGR8Ob3Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script setup>
+import { ref } from 'vue'
+const tipo = ref('')
+const localizacao = ref('')
+const precoMin = ref('')
+const precoMax = ref('')
+const quartos = ref('')
+const banheiros = ref('')
+const vagas = ref('')
+const areaMin = ref('')
+const areaMax = ref('')
 
+function limparFiltros() {
+  tipo.value = ''
+  localizacao.value = ''
+  precoMin.value = ''
+  precoMax.value = ''
+  quartos.value = ''
+  banheiros.value = ''
+  vagas.value = ''
+  areaMin.value = ''
+  areaMax.value = ''
+}
+function buscarImoveis() {
+  // Aqui você pode emitir um evento ou chamar uma função para buscar os imóveis
+  // Exemplo: emit('buscar', { tipo, localizacao, precoMin, precoMax, quartos, banheiros, vagas, areaMin, areaMax })
+}
+</script>
 
 <style scoped>
- @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-.filtro {
-  font-family: 'Inter', sans-serif;
-  max-width: 35%;
-  width: 100%;
+.filtro-imovel {
+  background: var(--cor1, #fff);
+  border-radius: 0 18px 18px 0;
+  box-shadow: 0 4px 24px rgba(39,25,28,0.08);
+  width: 320px;
+  min-width: 350px;
   height: 100vh;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  border-right: 1px solid #ddd;
-  backdrop-filter: blur(6px);
-  overflow-y: auto;
   position: fixed;
   top: 0;
   left: 0;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', sans-serif;
+  border-right: 2px solid var(--color4, #6e9987);
+  z-index: 100;
+  padding: 2rem 1.2rem;
+  margin: 0;
+}
+form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  animation: slideIn 0.3s ease;
+  gap: 1.2rem;
 }
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+h2 {
+  color: var(--color4, #1e2523);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
 }
-
-.filtro__header {
+.grupo-campos {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.filtro__header h2 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.filtro__header button {
-  font-size: 0.9rem;
-  color: #c0392b;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.filtro__header button:hover {
-  color: #a52820;
-}
-
-.filtro__etapas {
-  display: flex;
-  background: #f3f3f3;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid #ccc;
-}
-
-.filtro__etapas button {
-  flex: 1;
-  padding: 0.9rem;
-  font-weight: 500;
-  color: #777;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.filtro__etapas button.active {
-  background: #e60023;
-  color: #fff;
-  font-weight: 600;
-}
-
-.filtro__campo {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-.filtro__campo label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.filtro__campo input[type="text"],
-.filtro__campo input[type="number"] {
-  background: #f4f4f4;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 0.75rem;
-  font-size: 0.9rem;
-  color: #333;
-  width: 100%;
-}
-
-.filtro__campo input::placeholder {
-  color: #aaa;
-}
-
-.filtro__checkbox {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: #333;
-}
-
-.filtro__tipos {
-  display: flex;
-  gap: 0.7rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
-
-.filtro__tipos button {
-  flex: 1 1 calc(33% - 0.7rem);
-  background: #f0f0f0;
-  border: 1.5px solid #ccc;
-  border-radius: 10px;
-  padding: 0.75rem;
-  font-size: 0.85rem;
-  color: #777;
-  text-align: center;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
+.campo {
+  flex: 1 1 120px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.filtro__tipos button.active {
-  border-color: #e60023;
-  background: #fff;
-  color: #e60023;
-  font-weight: 600;
-}
-
-.filtro__tipos button:hover {
-  background-color: #eaeaea;
-}
-
-.filtro__inputs {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.filtro__inputs input {
-  flex: 1;
-}
-
-.filtro__comodos {
-  display: flex;
-  gap: 0.6rem;
-}
-
-.filtro__comodos select {
-  flex: 1;
-  padding: 0.65rem;
-  font-size: 0.9rem;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  color: #333;
-}
-
-.filtro__mais-tipos {
-  font-size: 0.85rem;
-  color: #e60023;
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
   gap: 0.3rem;
-  margin-top: 0.4rem;
 }
-
-.filtro__selecao-atual {
-  background: #f3f3f3;
-  padding: 1rem;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #333;
-}
-
-.filtro__selecao-atual span {
-  color: #e60023;
+label {
   font-weight: 600;
+  color: var(--color4, #6e9987);
+  font-size: 1rem;
 }
-
-@media (max-width: 768px) {
-  .filtro {
+input, select {
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--color4, #6e9987);
+  background: #f7f7f7;
+  font-size: 1rem;
+}
+input:focus, select:focus {
+  border-color: var(--color3, #e60023);
+  background: #e6f2ef;
+}
+.botoes {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.limpar {
+  background: var(--color4, #6e9987);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.limpar:hover {
+  background: var(--color3, #e60023);
+}
+.buscar {
+  background: var(--color3, #e60023);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.buscar:hover {
+  background: var(--color4, #6e9987);
+}
+@media (max-width: 900px) {
+  .filtro-imovel {
     position: relative;
+    width: 100vw;
     height: auto;
-    max-width: 100%;
+    border-radius: 0;
+    border-right: none;
+    border-bottom: 2px solid var(--color4, #6e9987);
     box-shadow: none;
-    padding: 1.5rem;
-  }
-
-  .filtro__tipos button {
-    flex: 1 1 48%;
+    padding: 1rem 0.3rem;
   }
 }
-
+@media (max-width: 600px) {
+  .filtro-imovel {
+    max-width: 98vw;
+    padding: 1rem 0.3rem;
+    border-radius: 12px;
+  }
+  .grupo-campos {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
 </style>
