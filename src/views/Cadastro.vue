@@ -42,42 +42,67 @@
 
 <style scoped>
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f0f4f8;
-}
-
+/* Layout inspirado em AnuncioImovel, cores de PagAnuncio */
 .register-page {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
+  background: var(--color3, #2e8b57);
 }
-
 .register-card {
-  width: 100%;
-  max-width: 550px;
-  background-color: white;
+  background: #fff;
   border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  padding: 40px;
-  transition: 0.3s ease;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.18);
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 100%;
 }
-
-.register-card:hover {
-  transform: translateY(-3px);
+.register-header h2 {
+  color: var(--color4, #246b43);
+  margin-bottom: 0.5rem;
 }
-
-.register-header {
+.register-header p {
+  color: #222;
+  margin-bottom: 1.2rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.form input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.btn-register {
+  background: var(--color4, #246b43);
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-register:hover {
+  background: var(--color2, #246b43);
+  transform: translateY(-2px);
+}
+.login-link {
   text-align: center;
-  margin-bottom: 26px;
+  margin-top: 1rem;
+}
+.login-link a {
+  color: var(--color3, #2e8b57);
+  text-decoration: underline;
+}
 }
 
 .logo {

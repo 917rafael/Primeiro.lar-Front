@@ -10,7 +10,7 @@
         <!--
           <img src="/logo-imobiliaria.png" alt="Logo Imobiliária" class="logo" />
         -->
-        <h2>Área do Corretor</h2>
+        <h2>Login Usuário</h2>
         <p>Entre para acessar imóveis para comprar ou alugar</p>
       </div>
 
@@ -24,7 +24,7 @@
         <button class="btn-login" type="submit">Entrar</button>
         <router-link to="/loginUsu"></router-link>
         <p class="forgot-password">
-          <a href="#">Esqueceu a senha?</a> | <router-link to="/Cadastro"><a href="#">Criar conta</a></router-link>
+          <a href="#">Esqueceu a senha?</a> | <router-link to="/CadastroUsuario"><a href="#">Criar conta</a></router-link>
         </p>
       </form>
     </div>
@@ -44,39 +44,66 @@ import '../assets/main.css'
 
 
 <style scoped>
-/* mantém todo o seu CSS original */
-
-/* BOTÃO VOLTAR */
-.btn-voltar {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  background: #002244;
-  color: #fff;
-  border: none;
-  padding: 0.8rem;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
+/* Layout inspirado em AnuncioImovel, cores de PagAnuncio */
+.login-page {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 34, 68, 0.3);
+  background: var(--color3, #2e8b57);
+}
+.login-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.18);
+  padding: 2.5rem 2rem;
+  max-width: 400px;
+  width: 100%;
+}
+.login-header h2 {
+  color: var(--color4, #246b43);
+  margin-bottom: 0.5rem;
+}
+.login-header p {
+  color: #222;
+  margin-bottom: 1.2rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.form input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.btn-login {
+  background: var(--color4, #246b43);
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 1000;
 }
-
-.btn-voltar:hover {
-  background: #004080;
+.btn-login:hover {
+  background: var(--color2, #246b43);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 34, 68, 0.4);
 }
-
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.forgot-password {
+  text-align: center;
+  margin-top: 1rem;
+}
+.forgot-password a {
+  color: var(--color3, #2e8b57);
+  text-decoration: underline;
 }
 
 /* Fonte e fundo principal */

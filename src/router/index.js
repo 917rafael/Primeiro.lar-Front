@@ -49,7 +49,12 @@ const router = createRouter({
       path:'/PreviaAnuncio',
       name: 'previaAnuncio',
       component: () => import('../components/PreviaDoAnuncio.vue') 
-    }
+    },
+    {
+      path: '/CadastroUsuario',
+      name: 'cadastroUsuario',
+      component: () => import('../views/CadastroUsuario.vue'),
+    },
   ],
 })
 

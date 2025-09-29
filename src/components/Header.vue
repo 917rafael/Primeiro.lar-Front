@@ -47,12 +47,10 @@ defineOptions({
       <div class="cta-buttons">
         <div class="cta-button">
           <router-link to="/Favoritos"><button>❤️Favoritos</button></router-link>
+          
         </div>
         <div class="cta-button">
-        <!--
-          
-        <router-link to="/Cadastrousu"><button>Entrar</button></router-link>
-        --> 
+          <router-link to="/CadastroUsuario"><button>Cadastre-se</button></router-link>
         
         </div>
       </div>

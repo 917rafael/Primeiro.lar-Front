@@ -46,7 +46,7 @@ watch(() => form.value.estado, async (uf) => {
 })
 
 function voltar() {
-  router.push('/')
+  router.push('/PaginaAnuncio')
 }
 function anunciar() {
   localStorage.setItem('anuncioPreview', JSON.stringify({ ...form.value, imagem: form.value.imagem ? URL.createObjectURL(form.value.imagem) : null }))
@@ -150,7 +150,7 @@ function handleImageUpload(e) {
   border-bottom: 1px solid #eee;
 }
 .back-btn {
-  background: #e60023;
+  background: #246b43;
   border: none;
   border-radius: 8px;
   padding: 6px;
@@ -160,7 +160,7 @@ function handleImageUpload(e) {
   transition: background 0.2s;
 }
 .back-btn:hover {
-  background: #cc001e;
+  background: #246b43;
 }
 .content {
   display: flex;
@@ -190,7 +190,7 @@ function handleImageUpload(e) {
   font-size: 1rem;
 }
 .btn.anunciar {
-  background: #e60023;
+  background: #246b43;
   color: #fff;
   padding: 12px 20px;
   border: none;
@@ -200,7 +200,7 @@ function handleImageUpload(e) {
   transition: all 0.3s ease;
 }
 .btn.anunciar:hover {
-  background: #cc001e;
+  background: #246b43;
   transform: translateY(-2px);
 }
 .info-box {
@@ -219,7 +219,7 @@ function handleImageUpload(e) {
 .mensagem {
   font-size: 1.1rem;
   margin-bottom: 1rem;
-  color: #e60023;
+  color: #246b43;
   font-weight: 500;
 }
 .comodidades h4 {

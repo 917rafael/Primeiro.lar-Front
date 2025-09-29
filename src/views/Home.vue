@@ -16,10 +16,6 @@
             construtoras e proprietários de imóveis!
           </p>
           <div class="botoes">
-            <button class="btn profissional">
-              <i class="fas fa-briefcase"></i>
-              Corretor
-            </button>
             <router-link to="/PaginaAnuncio">
               <button class="btn particular">
                 Interessado
