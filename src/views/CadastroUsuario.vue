@@ -15,16 +15,27 @@ function handleSubmit(e) {
 }
 </script>
 <template>
-  <div class="register-page">
-    <div class="register-card">
-      <div class="register-header">
-        <!--
-          <img src="/logo-imobiliaria.png" alt="Logo Imobiliária" class="logo" />
-        -->
-
-        <h2>Cadastro de Cliente</h2>
-        <p>Crie sua conta para visualizar e comparar imóveis disponíveis</p>
+  <div class="overlay">
+    <div class="anuncio-container">
+      <div class="anuncio-page">
+        <div class="content">
+          <div class="left-column">
+            <h2>Cadastro de Usuário</h2>
+            <form class="form-anuncio" @submit.prevent="cadastrar">
+              <input type="text" v-model="form.nomeCompleto" placeholder="Nome Completo" required />
+              <input type="text" v-model="form.nomeUsuario" placeholder="Nome de Usuário" required />
+              <input type="email" v-model="form.email" placeholder="Email" required />
+              <input type="password" v-model="form.senha" placeholder="Senha" required />
+              <input type="password" v-model="form.confirmarSenha" placeholder="Confirmar Senha" required />
+              <button type="submit" class="btn anunciar">Cadastrar</button>
+              <p class="cadastrar">
+                <router-link to="/Loginusu">Já tem uma conta? Entre aqui</router-link>
+              </p>
+            </form>
+          </div>
+        </div>
       </div>
+
 
       <form class="form">
         <label>Nome Completo</label>
@@ -58,24 +69,52 @@ function handleSubmit(e) {
   </div>
 </template>
 
+<script>
+export default {
+  name: 'CadastroUsuario',
+  data() {
+    return {
+      form: {
+        nomeCompleto: '',
+        nomeUsuario: '',
+        email: '',
+        senha: '',
+        confirmarSenha: ''
+      }
+    }
+  },
+  methods: {
+    cadastrar() {
+      // Lógica de cadastro aqui
+      alert('Cadastro realizado com sucesso!');
+    }
+  }
+}
+</script>
+
 <style scoped>
+
 
 body {
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
   background: linear-gradient(120deg, #f5f7fa 0%, #fff 100%);
   min-height: 100vh;
 }
-
-.register-page {
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
   display: flex;
-  align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%);
-}
-
-.register-card {
+  align-items: flex-start;
+  z-index: 1000;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
+  }
+.anuncio-container {
   width: 100%;
   max-width: 520px;
   background: rgba(255,255,255,0.98);
@@ -283,5 +322,71 @@ input[type="tel"]::placeholder {
 @keyframes slideUp {
   from { transform: translateY(40px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+  max-width: 500px;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.25);
+  animation: slideUp 0.35s ease;
+}
+.anuncio-page {
+  font-family: 'Inter', sans-serif;
+  color: #222;
+  background: #fff;
+  line-height: 1.6;
+}
+.content {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+.left-column {
+  flex: 1;
+}
+.form-anuncio {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-anuncio input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.btn.anunciar {
+  background: #246b43;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn.anunciar:hover {
+  background: #2e8b57;
+  transform: translateY(-2px);
+}
+.cadastrar {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+.cadastrar a {
+  color: #2e8b57;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.cadastrar a:hover {
+  color: #246b43;
+}
+  .content {
+    padding: 1rem 0.3rem;
+  }
+}
+.btn-cadastrar:hover {
+  background: #246b43;
 }
 </style>

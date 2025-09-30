@@ -1,11 +1,16 @@
 <template>
   <div class="login-page">
+
+    <!-- <button class="btn-voltar" @click="voltarHome">
+      <i class="fas fa-arrow-left"></i>
+    </button> -->
+
     <div class="login-card">
       <div class="login-header">
         <!--
           <img src="/logo-imobiliaria.png" alt="Logo Imobiliária" class="logo" />
         -->
-        <h2>Área do Cliente</h2>
+        <h2>Login Usuário</h2>
         <p>Entre para acessar imóveis para comprar ou alugar</p>
       </div>
 
@@ -18,23 +23,97 @@
 
         <button class="btn-login" type="submit">Entrar</button>
         <router-link to="/loginUsu"></router-link>
-        <div class="forgot-password forgot-password-horizontal">
-          <a href="#">Esqueceu a senha?</a>
-          <span class="forgot-separator"></span>
-          <router-link to="/Cadastrousu"><a href="/#">Criar conta</a></router-link>
-        </div>
+        <p class="forgot-password">
+          <a href="#">Esqueceu a senha?</a> | <router-link to="/CadastroUsuario"><a href="#">Criar conta</a></router-link>
+        </p>
       </form>
     </div>
   </div>
 </template>
 
- 
+<script setup>
+// import { useRouter } from 'vue-router'
+
+// const router = useRouter()
+// const voltarHome = () => {
+//   router.push('/') // redireciona para a página inicial
+// }
+import '../assets/main.css'
+
+</script>
+
+
 <style scoped>
-body {
+/* Layout inspirado em AnuncioImovel, cores de PagAnuncio */
+  
+  body {
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
   background: linear-gradient(120deg, #f5f7fa 0%, #fff 100%);
   min-height: 100vh;
 }
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color3, #2e8b57);
+}
+.login-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.18);
+  padding: 2.5rem 2rem;
+  max-width: 400px;
+  width: 100%;
+}
+.login-header h2 {
+  color: var(--color4, #246b43);
+  margin-bottom: 0.5rem;
+}
+.login-header p {
+  color: #222;
+  margin-bottom: 1.2rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.form input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.btn-login {
+  background: var(--color4, #246b43);
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-login:hover {
+  background: var(--color2, #246b43);
+  transform: translateY(-2px);
+}
+.forgot-password {
+  text-align: center;
+  margin-top: 1rem;
+}
+.forgot-password a {
+  color: var(--color3, #2e8b57);
+  text-decoration: underline;
+}
+
+/* Fonte e fundo principal */
+
 
 .login-page {
   display: flex;
@@ -43,7 +122,7 @@ body {
   min-height: 100vh;
   padding: 2rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%);
-}
+
 
 .login-card {
   width: 100%;

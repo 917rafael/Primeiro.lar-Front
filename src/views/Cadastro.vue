@@ -31,10 +31,10 @@
         <label>Senha</label>
         <input type="password" placeholder="Crie uma senha segura" required />
 
-        <button class="btn-register" type="submit">Cadastrar Corretor</button>
+        <button class="btn-register" type="submit" >Cadastrar Corretor</button>
 
         <p class="login-link">
-          Já é cadastrado? <a href="#">Entrar</a>
+          Já é cadastrado?<router-link to="/loginusu"><a href="#">Entrar</a></router-link>
         </p>
       </form>
     </div>
@@ -43,13 +43,14 @@
 
  
 <style scoped>
+
 body {
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
   background: linear-gradient(120deg, #f5f7fa 0%, #fff 100%);
   min-height: 100vh;
 }
-
 .register-page {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +58,6 @@ body {
   padding: 2rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%);
 }
-
 .register-card {
   width: 100%;
   max-width: 520px;
@@ -92,6 +92,59 @@ body {
   margin-bottom: 2.2rem;
   position: relative;
   z-index: 1;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.18);
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 100%;
+}
+.register-header h2 {
+  color: var(--color4, #246b43);
+  margin-bottom: 0.5rem;
+}
+.register-header p {
+  color: #222;
+  margin-bottom: 1.2rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.form input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.btn-register {
+  background: var(--color4, #246b43);
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-register:hover {
+  background: var(--color2, #246b43);
+  transform: translateY(-2px);
+}
+.login-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+.login-link a {
+  color: var(--color3, #2e8b57);
+  text-decoration: underline;
+}
+
 }
 .logo {
   width: 82px;

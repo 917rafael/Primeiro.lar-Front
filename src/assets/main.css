@@ -1,2 +1,19 @@
-@import './base.css';
 
+:root {
+  --color1: #27191c;
+  --color2: #2d3839;
+  --color3: #114d4d;
+  --color4: #6e9987;
+  --color5: #e0e4ce; 
+  --cor1: #fff;
+  --cor2: #545454;
+}
+
+body {
+  background: var(--color5);
+  color: var(--color1);
+  font-family: 'Inter', sans-serif;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
